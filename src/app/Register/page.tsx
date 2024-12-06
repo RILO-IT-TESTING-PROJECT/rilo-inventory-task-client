@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import Navbar from '@/components/Navbar/page';
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -67,6 +68,8 @@ export default function Register() {
   }
 
   return (
+    <>
+     <Navbar page='register'/>
     <section className="min-h-screen flex items-center justify-center">
     <Card className="w-full max-w-md mx-auto bg-gray-200">
       <CardHeader>
@@ -180,6 +183,8 @@ export default function Register() {
       </CardContent>
     </Card>
     </section>
+    </>
+    
   )
 }
 

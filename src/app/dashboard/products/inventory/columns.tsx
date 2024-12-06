@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export type Payment = {
   id: string;
@@ -19,7 +20,7 @@ const caseInsensitiveFilter = (row: any, columnId: string, filterValue: string) 
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    id: "select", // Unique ID for the selection column
+    id: "select",
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllRowsSelected()}
@@ -59,8 +60,22 @@ export const columns: ColumnDef<Payment>[] = [
     filterFn: "includesString",
   },
   {
-    accessorKey: "action",
+    id: "action", // Use a custom `id` since this is a custom cell
     header: "Action",
-    filterFn: "includesString",
+    cell: ({ row }) => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <h1 className="px-2 cursor-pointer">...</h1>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => console.log("Edit item with ID:", row.original.id)}>
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => console.log("Delete item with ID:", row.original.id)}>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ),
   },
 ];
