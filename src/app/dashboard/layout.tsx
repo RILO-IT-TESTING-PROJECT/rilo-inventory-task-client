@@ -12,19 +12,25 @@ import { LogOut, Settings, User } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
 import { ReactNode } from 'react';
+import Link from 'next/link'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
+      {/* Left Navbar of Dashboard */}
       <AppSidebar />
+
       <SidebarInset>
+        {/* Top Nav of Dashboard */}
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center w-full gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
            
             <div className="flex w-full items-center justify-between">
+               <Link href="/"> 
                 <h1 className="text-xl font-bold">Inventory Management</h1>
+                </Link>
                 <h2>Dashboard</h2>
                 {/* <Button className='bg-red-600'> <User/> My Account</Button> */}
                 {/* my account */}
@@ -37,10 +43,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                    
                     <div className="flex flex-col gap-2">
                         <div className=" items-center gap-4">
-                         <Button variant="default"><Settings /> Settings</Button>
+                         <Button variant="ghost"><Settings /> Settings</Button>
                         </div>
                         <div className=" items-center gap-4">
-                        <Button variant="default"><LogOut /> Logout</Button>
+                        <Button variant="ghost"><LogOut /> Logout</Button>
                         </div>
                         
                     </div>
@@ -52,7 +58,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </header>
 
 
-
+      {/* All Dashboard Content Here */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             {children}
         </div>
