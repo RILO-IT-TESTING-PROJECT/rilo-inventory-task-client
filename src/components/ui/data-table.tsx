@@ -33,16 +33,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     router.push("/add");
   };
 
-  const handleEdit = (id: string) => {
-    console.log("Edit item with ID:", id);
-    // Redirect or open edit modal
-    router.push(`/edit/${id}`);
-  };
-
-  const handleDelete = (id: string) => {
-    console.log("Delete item with ID:", id);
-    // Implement delete functionality
-  };
 
   return (
     <div>

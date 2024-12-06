@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useRouter } from 'next/navigation';
 
 export type Payment = {
   id: string;
@@ -60,22 +61,30 @@ export const columns: ColumnDef<Payment>[] = [
     filterFn: "includesString",
   },
   {
-    id: "action", // Use a custom `id` since this is a custom cell
+    id: "action",
     header: "Action",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <h1 className="px-2 cursor-pointer">...</h1>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => console.log("Edit item with ID:", row.original.id)}>
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => console.log("Delete item with ID:", row.original.id)}>
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    cell: ({ row }) => {
+      const router = useRouter();  // Using useRouter inside the cell function
+
+      const handleEdit = (id: string) => {
+        router.push(`/edit/${id}`); // Perform the routing inside handleEdit
+      };
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <h1 className="px-2 cursor-pointer">...</h1>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => handleEdit(row.original.id)}>
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => console.log("Delete item with ID:", row.original.id)}>
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
