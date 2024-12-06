@@ -1,21 +1,21 @@
-"use client"
-import React from 'react';
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import Link from 'next/link';
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -24,7 +24,7 @@ const FormSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be at least 8 characters.",
   }),
-})
+});
 
 const LoginPage = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -33,10 +33,10 @@ const LoginPage = () => {
       username: "",
       password: "",
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
+    console.log(data);
   }
 
   return (
@@ -53,10 +53,11 @@ const LoginPage = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input 
-                    className='bg-white text-gray-800' 
-                    placeholder="Enter your username" 
-                    {...field} />
+                    <Input
+                      className="bg-white text-gray-800"
+                      placeholder="Enter your username"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     This is your public display name.
@@ -74,8 +75,8 @@ const LoginPage = () => {
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
-                      className='bg-white text-gray-800'
-                      type="password"  // Set password field type to "password" to hide characters
+                      className="bg-white text-gray-800"
+                      type="password" // Set password field type to "password" to hide characters
                       placeholder="Enter your password"
                       {...field}
                     />
@@ -88,9 +89,20 @@ const LoginPage = () => {
               )}
             />
             {/* Submit Button */}
-            <Button type="submit" className="w-full">Submit</Button>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
           </form>
         </Form>
+
+        {/* GitHub Login Button */}
+        <Button
+          className="w-full bg-gray-800 text-white hover:bg-gray-700 mt-4"
+          onClick={() => signIn("github")} // Trigger GitHub login
+        >
+          Login with GitHub
+        </Button>
+
         <div className="mt-4  text-sm">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="text-primary hover:underline">
@@ -99,7 +111,7 @@ const LoginPage = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default LoginPage;
