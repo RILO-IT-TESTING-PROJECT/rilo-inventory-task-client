@@ -10,6 +10,7 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
   ColumnFiltersState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -38,17 +39,20 @@ export function DataTable<TData, TValue>({
     const router = useRouter(); 
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         [])
+    const [rowSelection, setRowSelection] = React.useState({})
 
-  const table = useReactTable({
-    data,
-    columns,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    state: {
-        columnFilters
-      },
-  });
+        const table = useReactTable({
+            data,
+            columns,
+            state: { columnFilters,rowSelection },
+            onColumnFiltersChange: setColumnFilters,
+            getCoreRowModel: getCoreRowModel(),
+            getPaginationRowModel: getPaginationRowModel(),
+            getFilteredRowModel: getFilteredRowModel(), 
+            onRowSelectionChange: setRowSelection,
+          });
+          
+         
 
   const handleAddInventory = () => {
     router.push("/add");
@@ -59,17 +63,19 @@ export function DataTable<TData, TValue>({
    
   };
 
+
   return (
     <div>
         <div className="flex items-center py-4">
         <Input
-          placeholder="Filter names..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+  placeholder="Filter names..."
+  value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+  onChange={(event) =>
+    table.getColumn("name")?.setFilterValue(event.target.value || undefined)
+  }
+  className="max-w-sm"
+/>
+
       </div>
     <div className="rounded-md border">
       

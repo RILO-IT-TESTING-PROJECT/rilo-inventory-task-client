@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer/page"
 import { Payment, columns } from "./columns"
-import { DataTable } from '../../components/ui/data-table'
+import { DataTable } from '../../../../components/ui/data-table'
 import Navbar from "@/components/Navbar/page"
 
 async function getData(): Promise<Payment[]> {
@@ -75,9 +75,6 @@ export default async function DemoPage() {
       <div className="flex-grow container mx-auto py-10">
         <DataTable columns={columns} data={data} />
       </div>
-
-     
-      <Footer />
     </div>
     </div>
   )
