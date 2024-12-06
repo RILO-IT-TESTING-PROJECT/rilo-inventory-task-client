@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer/page"
 import { Payment, columns } from "./columns"
-import { DataTable } from '../../components/ui/data-table'
+import { DataTable } from '../../../../components/ui/data-table'
 import Navbar from "@/components/Navbar/page"
 
 async function getData(): Promise<Payment[]> {

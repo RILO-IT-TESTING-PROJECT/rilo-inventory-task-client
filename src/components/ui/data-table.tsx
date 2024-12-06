@@ -10,8 +10,8 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
-  ColumnFiltersState,
   getFilteredRowModel,
+  ColumnFiltersState,
   useReactTable,
 } from "@tanstack/react-table";
 
