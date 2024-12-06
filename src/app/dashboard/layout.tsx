@@ -13,6 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 import { ReactNode } from 'react';
 import Link from 'next/link'
+import { Toaster } from '@/components/ui/toaster'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -60,6 +61,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
       {/* All Dashboard Content Here */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <Toaster />
             {children}
         </div>
       </SidebarInset>
