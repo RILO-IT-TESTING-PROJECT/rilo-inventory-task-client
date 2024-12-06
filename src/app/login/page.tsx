@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar/page";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -40,7 +41,9 @@ const LoginPage = () => {
   }
 
   return (
-    <section className="flex items-center justify-center w-full min-h-screen bg-gray-100">
+    <>
+    <Navbar page="login"/>
+     <section className="flex items-center justify-center w-full min-h-screen bg-gray-100">
       <div className="w-full max-w-md px-8 py-8 bg-gray-200 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold  mb-6">Login</h2>
         <Form {...form}>
@@ -111,6 +114,8 @@ const LoginPage = () => {
         </div>
       </div>
     </section>
+    </>
+   
   );
 };
 

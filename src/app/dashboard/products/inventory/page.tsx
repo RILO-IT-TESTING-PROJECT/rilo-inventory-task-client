@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer/page"
 import { Payment, columns } from "./columns"
 import { DataTable } from '../../../../components/ui/data-table'
-import Navbar from "@/components/Navbar/page"
+
 
 async function getData(): Promise<Payment[]> {
 
@@ -52,24 +52,11 @@ async function getData(): Promise<Payment[]> {
 
 export default async function DemoPage() {
   const data = await getData()
+  
+
 
   return (
     <div>
-    <nav
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "1rem",
-      background: "#333",
-      color: "#fff",
-    }}
-  >
-    <h1 style={{ margin: 0 }}>NextJS</h1>
-    <div>
-     <h1>My Account</h1>
-    </div>
-  </nav>
     <div className="flex flex-col min-h-screen">
      
       <div className="flex-grow container mx-auto py-10">
