@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { MoreHorizontal } from 'lucide-react'
 import Link from "next/link"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 interface Store {
   id: string
@@ -24,6 +25,8 @@ interface Store {
 }
 
 export default function StoreManagement() {
+  const [position, setPosition] = React.useState("bottom")
+
   const [stores, setStores] = useState<Store[]>([
     {
       id: "1",
@@ -50,7 +53,7 @@ export default function StoreManagement() {
 
   const [nameFilter, setNameFilter] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
-
+ console.log(statusFilter)
   const toggleStatus = (storeId: string) => {
     setStores(stores.map(store => {
       if (store.id === storeId) {
@@ -69,12 +72,14 @@ export default function StoreManagement() {
     return matchesName && matchesStatus
   })
 
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Stores</h1>
       </div>
 
+    {/* Store Header for filter */}
       <div className="flex justify-between items-center mb-6 gap-4">
         <div className="flex-1">
           <label className="block text-sm font-medium mb-2">Name Filter</label>
@@ -103,6 +108,8 @@ export default function StoreManagement() {
         </div>
       </div>
 
+
+    {/* Store Table Here */}
       <Table className="px-10">
         <TableHeader>
           <TableRow>
@@ -128,10 +135,25 @@ export default function StoreManagement() {
               </TableCell>
               <TableCell>{store.consumerKey}</TableCell>
               <TableCell>{store.consumerSecret}</TableCell>
-              <TableCell className="text-right">
-                <Button variant="ghost" size="icon">
+              
+               {/* for 3 dot button where edit and delete options will be there */}
+              <TableCell className="text-right">   
+                <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
                   <MoreHorizontal className="h-4 w-4" />
-                </Button>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-slate-200">
+                  <DropdownMenuLabel>Action</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                    <DropdownMenuRadioItem value="edit">Edit</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="delete">Delete</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               </TableCell>
             </TableRow>
           ))}

@@ -2,14 +2,14 @@
 
 import * as React from "react"
 import {
+  Archive,
   AudioWaveform,
-  Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  SquareTerminal,
+  SquareKanban,
   User 
 } from "lucide-react"
 
@@ -52,7 +52,7 @@ const data = {
     {
       title: "Products",
       url: "/dashboard/products",
-      icon: SquareTerminal,
+      icon: Archive,
       isActive: true,
       items: [
         {
@@ -65,7 +65,7 @@ const data = {
     {
       title: "Selling Platforms",
       url: "/dashboard/sellingplatforms",
-      icon: Bot,
+      icon: SquareKanban,
       items: [
         {
           title: "Stores",

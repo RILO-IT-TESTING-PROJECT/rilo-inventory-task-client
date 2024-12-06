@@ -5,17 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
-interface AddStoreFormProps {
-  onCancel: () => void
-  onSave: (storeData: {
-    url: string
-    consumerKey: string
-    consumerSecret: string
-  }) => void
-}
 
-export default function AddStoreForm({ onCancel, onSave }: AddStoreFormProps) {
+
+export default function AddStoreForm() {
   const [formData, setFormData] = useState({
     url: "",
     consumerKey: "",
@@ -24,7 +18,7 @@ export default function AddStoreForm({ onCancel, onSave }: AddStoreFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSave(formData)
+   console.log(formData)
   }
 
   return (
@@ -32,12 +26,13 @@ export default function AddStoreForm({ onCancel, onSave }: AddStoreFormProps) {
     <Card className="w-full max-w-2xl mx-auto bg-gray-200">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Stores: Add</CardTitle>
+       <Link href="/dashboard/sellingplatforms/stores">
         <Button
           variant="destructive"
-          onClick={onCancel}
         >
           Cancel
         </Button>
+        </Link>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
