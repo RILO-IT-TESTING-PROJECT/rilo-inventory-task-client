@@ -75,9 +75,6 @@ export default async function DemoPage() {
       <div className="flex-grow container mx-auto py-10">
         <DataTable columns={columns} data={data} />
       </div>
-
-     
-      <Footer />
     </div>
     </div>
   )
