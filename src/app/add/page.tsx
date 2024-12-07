@@ -1,5 +1,6 @@
 "use client";
 
+import { addInventory } from "@/lib/action.inventory.add";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -8,7 +9,7 @@ export default function AddInventoryPage() {
   const [formData, setFormData] = useState({
     name: "",
     sku: "",
-    code: "",
+    type: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,13 +17,15 @@ export default function AddInventoryPage() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSave = () => {
-    console.log("Form Data:", formData);
+  const handleSave = async() => {
+    const res = await addInventory(formData);
+
+    router.push("/dashboard/products/inventory"); 
   
   };
 
   const handleCancel = () => {
-    router.push("/"); 
+    router.push("/dashboard/products/inventory"); 
   };
 
   return (
@@ -68,18 +71,22 @@ export default function AddInventoryPage() {
 
         
         <div className="mb-6">
-          <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-2">Select Codes</label>
-          <select
-            id="code"
-            name="code"
-            
-            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-3 text-base transition-all focus:outline-none"
-          >
-            <option value="code1">Single-Use Code</option>
-            <option value="code2">Multiple-Use Code</option>
-           
-          </select>
-        </div>
+  <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-2">
+    Select Codes
+  </label>
+  <select
+    id="code"
+    name="code"
+    value={formData.type}
+    onChange={(e) => setFormData({ ...formData, type: e.target.value })} 
+    className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-3 text-base transition-all focus:outline-none"
+  >
+    <option value="">Select an option</option>
+    <option value="Single-Use">Single-Use</option>
+    <option value="Multiple-Use">Multiple-Use</option>
+  </select>
+</div>
+
       </form>
 
      

@@ -1,95 +1,29 @@
-"use client";
+import Link from 'next/link';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+interface NavbarProps {
+  page: 'home' | 'login' | 'register';
+}
 
-const Navbar: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-  const router = useRouter();
-
-  const handleLoginClick = () => {
-    setIsLoggedIn(true); 
-    router.push("/login"); 
-  };
-
-  const handleRegisterClick = () => {
-    setIsLoggedIn(false); 
-    router.push("/register"); 
-  };
-
+export default function Navbar({ page }: NavbarProps) {
   return (
-    <nav
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "1rem",
-        background: "#333",
-        color: "#fff",
-      }}
-    >
-      <h1 style={{ margin: 0 }}>NextJS</h1>
+    <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
+      <h1 className="text-lg font-bold">NextJS</h1>
       <div>
-        {isLoggedIn === null && (
-          <>
-            <button
-              onClick={handleLoginClick}
-              style={{
-                marginRight: "1rem",
-                padding: "0.5rem 1rem",
-                background: "#007bff",
-                border: "none",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
+        {page !== 'login' && (
+          <Link href="/login">
+            <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md">
               Login
             </button>
-            <button
-              onClick={handleRegisterClick}
-              style={{
-                padding: "0.5rem 1rem",
-                background: "#28a745",
-                border: "none",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              Register
+          </Link>
+        )}
+        {page !== 'register' && (
+          <Link href="/register">
+            <button className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md ml-2">
+              Signup
             </button>
-          </>
-        )}
-        {isLoggedIn === true && (
-          <button
-            onClick={handleRegisterClick}
-            style={{
-              padding: "0.5rem 1rem",
-              background: "#28a745",
-              border: "none",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Register
-          </button>
-        )}
-        {isLoggedIn === false && (
-          <button
-            onClick={handleLoginClick}
-            style={{
-              padding: "0.5rem 1rem",
-              background: "#007bff",
-              border: "none",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Login
-          </button>
+          </Link>
         )}
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

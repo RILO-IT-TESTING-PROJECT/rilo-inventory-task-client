@@ -15,9 +15,9 @@ import {
 import { LogOut, Settings, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
 import { Toaster } from "@/components/ui/toaster";
 import { ReactNode, useEffect } from "react";
+import Link from 'next/link'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { data: session, status } = useSession();
@@ -89,8 +89,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         {/* All Dashboard Content Here */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Toaster />
-          {children}
+        <Toaster />
+            {children}
         </div>
       </SidebarInset>
     </SidebarProvider>
