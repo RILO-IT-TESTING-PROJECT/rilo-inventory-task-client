@@ -64,11 +64,43 @@ export const columns: ColumnDef<Payment>[] = [
     id: "action",
     header: "Action",
     cell: ({ row }) => {
-      const router = useRouter();  // Using useRouter inside the cell function
+      const router = useRouter();  
 
       const handleEdit = (id: string) => {
-        router.push(`/edit/${id}`); // Perform the routing inside handleEdit
+        router.push(`/edit/${id}`); 
       };
+
+      const handleDelete = async (id: string) => {
+        
+        const formattedId = id.replace(/^:/, ""); 
+      
+        const confirmDelete = confirm("Are you sure you want to delete this item?");
+        if (!confirmDelete) return;
+      
+        try {
+          const res = await fetch(`https://rilo-inventory-server.vercel.app/api/v1/inventories/${formattedId}`, {
+            method: "DELETE",
+            headers: {
+              Authorization:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzUzMDM4YzdjNWFhNzQwM2FlOTkzOTMiLCJpYXQiOjE3MzM1MDQ5MjQsImV4cCI6MTczNDcxNDUyNH0.oj5KaVmkNyT86S-ZdX-yHF1fhqzX5vNlsHXa8oYPy6g",
+              "Content-type": "application/json",
+            },
+          });
+      
+          if (res.ok) {
+            alert("Item deleted successfully!");
+            router.refresh(); 
+          } else {
+            const errorData = await res.json();
+            console.error("Error deleting item:", errorData);
+            alert("Failed to delete item.");
+          }
+        } catch (error) {
+          console.error("Error deleting item:", error);
+          alert("An error occurred while deleting the item.");
+        }
+      };
+      
 
       return (
         <DropdownMenu>
@@ -79,7 +111,7 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuItem onClick={() => handleEdit(row.original.id)}>
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => console.log("Delete item with ID:", row.original.id)}>
+            <DropdownMenuItem onClick={()=>handleDelete(row.original.id)}>
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
