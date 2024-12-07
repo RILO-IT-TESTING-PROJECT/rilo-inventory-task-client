@@ -1,10 +1,10 @@
 "use client";
-import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, getFilteredRowModel, ColumnFiltersState, useReactTable } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
+import * as React from "react";
 
 interface DataWithId {
   id: string; // Add 'id' as a mandatory field
@@ -75,7 +75,7 @@ export function DataTable<TData extends DataWithId>({ columns, data }: DataTable
 
 
   const handleAddInventory = ()=>{
-    router.push('/add')
+    router.push("/dashboard/products/inventory/add");
   }
   
 

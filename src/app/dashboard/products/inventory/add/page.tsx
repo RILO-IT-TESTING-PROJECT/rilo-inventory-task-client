@@ -17,20 +17,18 @@ export default function AddInventoryPage() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSave = async() => {
+  const handleSave = async () => {
     const res = await addInventory(formData);
 
-    router.push("/dashboard/products/inventory"); 
-  
+    router.push("/dashboard/products/inventory");
   };
 
   const handleCancel = () => {
-    router.push("/dashboard/products/inventory"); 
+    router.push("/dashboard/products/inventory");
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 border rounded-md shadow-lg">
-      
+    <div className="w-1/2 mx-auto mt-10 p-6 border rounded-md shadow-lg">
       <div className="mb-4 text-right">
         <button
           onClick={handleCancel}
@@ -40,11 +38,14 @@ export default function AddInventoryPage() {
         </button>
       </div>
 
-      
       <form>
-       
         <div className="mb-6">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Name
+          </label>
           <input
             type="text"
             id="name"
@@ -56,9 +57,13 @@ export default function AddInventoryPage() {
           />
         </div>
 
-       
         <div className="mb-6">
-          <label htmlFor="quantity" className="block text-sm font-medium text-gray-700 mb-2">SKU</label>
+          <label
+            htmlFor="quantity"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            SKU
+          </label>
           <input
             type="text"
             id="sku"
@@ -69,27 +74,27 @@ export default function AddInventoryPage() {
           />
         </div>
 
-        
         <div className="mb-6">
-  <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-2">
-    Select Codes
-  </label>
-  <select
-    id="code"
-    name="code"
-    value={formData.type}
-    onChange={(e) => setFormData({ ...formData, type: e.target.value })} 
-    className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-3 text-base transition-all focus:outline-none"
-  >
-    <option value="">Select an option</option>
-    <option value="Single-Use">Single-Use</option>
-    <option value="Multiple-Use">Multiple-Use</option>
-  </select>
-</div>
-
+          <label
+            htmlFor="code"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Select Codes
+          </label>
+          <select
+            id="code"
+            name="code"
+            value={formData.type}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 p-3 text-base transition-all focus:outline-none"
+          >
+            <option value="">Select an option</option>
+            <option value="Single-Use">Single-Use</option>
+            <option value="Multiple-Use">Multiple-Use</option>
+          </select>
+        </div>
       </form>
 
-     
       <div className="flex justify-center mt-6">
         <button
           onClick={handleSave}
