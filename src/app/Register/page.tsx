@@ -1,20 +1,7 @@
-'use client'
-import React from 'react';
-
-import { useState } from "react"
-// import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import Link from "next/link"
-
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+"use client";
+import Navbar from "@/components/Navbar/page";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -22,10 +9,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import Navbar from '@/components/Navbar/page';
 
+// Validation schema using Zod
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -33,11 +27,11 @@ const formSchema = z.object({
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-})
+});
 
 export default function Register() {
-//   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false); // State to handle loading
+  const router = useRouter(); // Router instance for navigation
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,21 +43,41 @@ export default function Register() {
       email: "",
       password: "",
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    
+    setIsLoading(true); // Set loading state to true
+
     try {
-      // Add your registration logic here
-      console.log(values)
-      
-      // Simulate API call
-      
+      const response = await fetch(
+        "https://rilo-inventory-server.vercel.app/api/v1/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle API errors
+        alert(result.message || "Failed to register. Please try again.");
+        return;
+      }
+
+      // Handle successful registration
+      alert("Registration successful! Please log in.");
+
+      // redirect the user to the login page
+      router.push("/login");
     } catch (error) {
-      console.error(error)
+      console.error("Unexpected error:", error);
+      alert("An unexpected error occurred. Please try again.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -187,4 +201,3 @@ export default function Register() {
     
   )
 }
-

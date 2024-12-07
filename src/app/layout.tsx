@@ -4,8 +4,6 @@
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/Navbar/page";
-import Footer from "@/components/Footer/page";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
