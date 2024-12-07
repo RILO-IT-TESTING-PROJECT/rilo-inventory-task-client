@@ -1,14 +1,11 @@
-import Footer from "@/components/Footer/page";
 import { Payment, columns } from "./columns";
 import { DataTable } from "../../../../components/ui/data-table";
 import { getInventory } from "@/lib/action.inventory";
 
 export default async function DemoPage() {
   try {
-   
     const inventoryData = await getInventory();
 
-    
     const data: Payment[] = inventoryData.map(item => ({
       id: item._id,
       name: item.name,

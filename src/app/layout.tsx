@@ -33,9 +33,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
-        <SessionProvider>{children}</SessionProvider>
-      <Footer/>
+        <SessionProvider>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
+            }}
+          >
+            <main style={{ flex: 1 }}>{children}</main>
+            <Footer />
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );
