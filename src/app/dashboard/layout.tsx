@@ -16,6 +16,7 @@ import { LogOut, Settings, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { Toaster } from "@/components/ui/toaster";
 import { ReactNode, useEffect } from "react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -86,7 +87,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+        {/* All Dashboard Content Here */}
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <Toaster />
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
